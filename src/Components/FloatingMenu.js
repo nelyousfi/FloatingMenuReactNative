@@ -21,7 +21,7 @@ const ANIMATION_DURATION = 100;
 class FloatingMenu extends React.Component {
   constructor(props) {
     super(props);
-    if (props.isDefaultOpened) this.props.transition('TOGGLE');
+    if (props.isDefaultOpened) this.props.transition('OPEN');
     this.rotateValue = new Animated.Value(0)
   }
 
@@ -39,8 +39,12 @@ class FloatingMenu extends React.Component {
   }
 
   toggleFloatingMenu = () => {
-    this.props.transition('TOGGLE')
-  };
+    if (this.props.machineState.value === 'opened') {
+      this.props.transition('CLOSE');
+    } else if (this.props.machineState.value === 'closed') {
+      this.props.transition('OPEN');
+    }
+  }
 
   componentDidTransition = () => {
     const state = this.props.machineState.value;
@@ -97,17 +101,19 @@ class FloatingMenu extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {this.renderFloatingItems()}
-        <TouchableWithoutFeedback onPress={this.toggleFloatingMenu}>
-          <View style={[styles.primaryButton, this.getPrimaryButtonStyle()]}>
-            <Animated.Image
-              style={[styles.primaryIcon, this.getPrimaryIconAnimationStyle()]}
-              source={require('../Images/add.png')}
-            />
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <TouchableWithoutFeedback onPress={() => this.props.closeWhenClickingOutside && this.props.transition('CLOSE')}>
+        <View style={styles.container}>
+          {this.renderFloatingItems()}
+          <TouchableWithoutFeedback onPress={this.toggleFloatingMenu}>
+            <View style={[styles.primaryButton, this.getPrimaryButtonStyle()]}>
+              <Animated.Image
+                style={[styles.primaryIcon, this.getPrimaryIconAnimationStyle()]}
+                source={require('../Images/add.png')}
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

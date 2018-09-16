@@ -1,23 +1,35 @@
 import React from 'react';
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  Text
 } from 'react-native';
 import FloatingMenu from './src/Components/FloatingMenu';
 import { menus } from './src/Assets/menus';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuState: 'Menu closed',
+      lastClickedItem: 'No item clicked'
+    }
+  }
+
   render() {
     return(
       <View style={styles.container}>
+        <Text>Menu state: {this.state.menuState}</Text>
+        <Text>Last clicked item: {this.state.lastClickedItem}</Text>
         <FloatingMenu
           menus={menus}
           primaryColor={'red'}
           secondaryColor={'#eee'}
-          isDefaultOpened={false}
-          onMenuOpened={() => console.log('Menu opened')}
-          onMenuClosed={() => console.log('Menu closed')}
-          onItemClicked={id => console.log(`item ${id} clicked`)}
+          isDefaultOpened={true}
+          closeWhenClickingOutside={true}
+          onMenuOpened={() => this.setState({ menuState: 'Menu opened' })}
+          onMenuClosed={() => this.setState({ menuState: 'Menu closed' })}
+          onItemClicked={id => this.setState({ lastClickedItem: id })}
         />
       </View>
     )
@@ -27,8 +39,9 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray',
-  }
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });
 
 export default App

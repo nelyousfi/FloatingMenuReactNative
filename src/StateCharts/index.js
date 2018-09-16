@@ -5,18 +5,18 @@ export const floatingMenuMachine = Machine({
   states: {
     closed: {
       on: {
-        TOGGLE: 'opened',
+        OPEN: 'opened',
       },
       onEntry: ['rotateIcon']
     },
     opened: {
       on: {
-        TOGGLE: 'closed',
+        CLOSE: 'closed',
         FLOATING_ITEM_CLICKED: {
           closed: {
             actions: ['onFloatingItemClicked']
           }
-        }
+        },
       },
       onEntry: ['rotateIcon']
     }
