@@ -66,5 +66,6 @@ const styles = StyleSheet.create({
     borderRadius: DIMENSION / 2,
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 2
   },
 });
