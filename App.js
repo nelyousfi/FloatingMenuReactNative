@@ -23,10 +23,10 @@ class App extends React.Component {
         <Text>Last clicked item: {this.state.lastClickedItem}</Text>
         <FloatingMenu
           menus={menus}
-          primaryColor={'red'}
-          secondaryColor={'#eee'}
-          isDefaultOpened={true}
-          closeWhenClickingOutside={true}
+          primaryColor={'orange'}
+          secondaryColor={'#ddd'}
+          isDefaultOpened={false}
+          closeWhenClickingOutside={false}
           onMenuOpened={() => this.setState({ menuState: 'Menu opened' })}
           onMenuClosed={() => this.setState({ menuState: 'Menu closed' })}
           onItemClicked={id => this.setState({ lastClickedItem: id })}

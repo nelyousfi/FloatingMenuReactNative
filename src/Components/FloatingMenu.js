@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { withStateMachine, State } from 'react-automata'
 import { FloatingItem } from './FloatingItem';
-import { floatingMenuMachine } from '../StateCharts';
+import { floatingMenuMachine } from '../Statecharts';
 
 const MARGIN_RIGHT = 16;
 const MARGIN_BOTTOM = 16;
